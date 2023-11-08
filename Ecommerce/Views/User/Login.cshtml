@@ -1,0 +1,66 @@
+﻿@model Ecommerce.Models.UserReg_Table
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+@*@Html.Raw(TempData["InsertMSG"])*@
+@Html.Raw(TempData["LoginSuccessMSG"])
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="@Url.Content("/Content/StyleSheet2.css")" />
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="hero ">
+        <div class="background-image"></div>
+
+        <div class="form-box ">
+            <div class="button-box">
+                <div id="btn">
+
+                </div>
+                
+                <button type="button" class="toggle-btn">
+                    Login Your Account
+                </button>
+
+
+
+                <!-- <button type="button" class="toggle-btn" onclick="register()">
+        Register
+    </button> -->
+            </div>
+            <div class="social-icons">
+                <img src="~/Content/Images/facebook-icon1.png" alt="" />
+                <img src="~/Content/Images/twitter-icon1.png" alt="" />
+                <img src="~/Content/Images/google-icon1.png" alt="" />
+            </div>
+
+            <form id="login-container" class="input-group" action="/" method="post">
+               
+                @Html.TextBoxFor(model => model.Email, new { @class = "input-field", placeholder = "Email", required = "required" })
+                @Html.PasswordFor(model=>model.Ur_Pass, new {@class="input-field",placeholder="Password" ,required="required"})
+               
+
+                        <input type="checkbox" class="check-box" placeholder="." /><span>Remember Password</span>
+                        @*<button type="submit" class="input-btn">Login</button>*@
+                            
+                             <input type="submit" value="Login" class="input-btn"/>
+                <br />
+                <p>First time user? <a href="@Url.Action("SignUp","User")">Click here to register</a></p>
+                    </form>
+                </div>
+            </div>
+        </body>
+
+        </html>

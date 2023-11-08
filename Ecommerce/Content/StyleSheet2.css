@@ -1,0 +1,223 @@
+﻿/*User login page*/
+/*body {
+    margin: 0;
+    padding: 0;
+    background-color: #d46adeba;
+    font-family: 'Arial';
+}
+
+
+
+.login {
+    width: 382px;
+    overflow: hidden;
+    margin: auto;
+    margin: 20px 0 0 450px;
+    padding: 80px;
+    background: #23463f;
+    border-radius: 15px;
+}
+
+
+
+h2 {
+    text-align: center;
+    color: #277582;
+    padding: 20px;
+}
+
+
+
+label {
+    color: #08ffd1;
+    font-size: 17px;
+}
+
+
+
+#Uname {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+
+
+
+#Pass {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+
+
+
+#log {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: rgba(0, 0, 255, 0.08);
+}
+
+
+
+span {
+    color: white;
+    font-size: 17px;
+}
+
+
+
+a {
+    float: right;
+    background-color: grey;
+*/
+
+* ,body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.hero {
+    height: 100%;
+    width: 100%;
+
+    /*background-position: center;
+    background-size: cover;*/
+    position: absolute;
+}
+
+.background-image {
+   
+    background-image: url('Images/pexels.jpg');
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    filter: blur(5px);
+    height: 100%;
+    width: 100%;
+   
+}
+
+.form-box {
+    width: 330px;
+    height: 410px;
+    position: relative;
+    margin: 4% auto;
+    background-color: #fff;
+    padding: 5px;
+    overflow: hidden;
+    filter: blur(0px);
+ 
+}
+
+.button-box {
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.toggle-btn {
+    padding: 10px 30px;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    font-weight: bold;
+    cursor:not-allowed;
+  
+}
+
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,#ff105f, #ffad06);
+    border-radius: 30px;
+    transition: .3s;
+}
+
+.social-icons {
+    margin: 30px auto;
+    text-align: center;
+}
+
+    .social-icons img {
+        width: 30px;
+        margin: 0 12px;
+        box-shadow: 0 0 20px 0 #7f7f7f3d;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+.input-group {
+    top: 180px;
+    position: absolute;
+    width: 85%;
+    transition: 0.5s;
+    padding:0px;
+    margin-left: 25px;
+   
+  
+    
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.input-btn {
+    width: 60%;
+    padding: 7px 30px;
+    cursor: pointer;
+ /*   display: block;*/
+    margin-top:20px;
+    background: linear-gradient(to right,#ff105f, #ffad06);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    position:relative;
+    left:18%;
+    
+}
+
+.check-box {
+    margin: 40px 10px 30px 0;
+}
+
+span {
+    color: #777;
+    font-size: 12px;
+   
+   /*  position:absolute; */
+}
+p{
+    font-size:10px;
+    text-align:center;
+    margin-top:10px;
+    
+}
+.scroll {
+    max-height:220px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    float: right;
+    
+} 

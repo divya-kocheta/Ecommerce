@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EcommModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminDetails_Table">
+          <Key>
+            <PropertyRef Name="Ad_ID" />
+          </Key>
+          <Property Name="Ad_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Ad_Pass" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cart_item">
+          <Key>
+            <PropertyRef Name="Cart_ID" />
+          </Key>
+          <Property Name="Cart_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_quantity" Type="int" Nullable="false" />
+          <Property Name="Product_price" Type="int" Nullable="false" />
+          <Property Name="Cart_total_price" Type="int" Nullable="false" />
+          <Property Name="FK_productID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order_Details">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Mobno" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Zipcode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="paymentstatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product_table">
+          <Key>
+            <PropertyRef Name="P_ID" />
+          </Key>
+          <Property Name="P_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="P_Image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="P_Price" Type="int" />
+          <Property Name="P_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="P_Fk_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="UserReg_Table">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="MobNo" Type="bigint" Nullable="false" />
+          <Property Name="Ur_Pass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Addres" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Admin_Fk_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Cart_item__FK_pr__4AB81AF0">
+          <End Role="Product_table" Type="Self.Product_table" Multiplicity="1" />
+          <End Role="Cart_item" Type="Self.Cart_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_table">
+              <PropertyRef Name="P_ID" />
+            </Principal>
+            <Dependent Role="Cart_item">
+              <PropertyRef Name="FK_productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_t__P_Fk___29572725">
+          <End Role="AdminDetails_Table" Type="Self.AdminDetails_Table" Multiplicity="0..1" />
+          <End Role="Product_table" Type="Self.Product_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminDetails_Table">
+              <PropertyRef Name="Ad_ID" />
+            </Principal>
+            <Dependent Role="Product_table">
+              <PropertyRef Name="P_Fk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserReg_T__Admin__267ABA7A">
+          <End Role="AdminDetails_Table" Type="Self.AdminDetails_Table" Multiplicity="0..1" />
+          <End Role="UserReg_Table" Type="Self.UserReg_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminDetails_Table">
+              <PropertyRef Name="Ad_ID" />
+            </Principal>
+            <Dependent Role="UserReg_Table">
+              <PropertyRef Name="Admin_Fk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommModelStoreContainer">
+          <EntitySet Name="AdminDetails_Table" EntityType="Self.AdminDetails_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart_item" EntityType="Self.Cart_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_Details" EntityType="Self.order_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_table" EntityType="Self.Product_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserReg_Table" EntityType="Self.UserReg_Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cart_item__FK_pr__4AB81AF0" Association="Self.FK__Cart_item__FK_pr__4AB81AF0">
+            <End Role="Product_table" EntitySet="Product_table" />
+            <End Role="Cart_item" EntitySet="Cart_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_t__P_Fk___29572725" Association="Self.FK__Product_t__P_Fk___29572725">
+            <End Role="AdminDetails_Table" EntitySet="AdminDetails_Table" />
+            <End Role="Product_table" EntitySet="Product_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserReg_T__Admin__267ABA7A" Association="Self.FK__UserReg_T__Admin__267ABA7A">
+            <End Role="AdminDetails_Table" EntitySet="AdminDetails_Table" />
+            <End Role="UserReg_Table" EntitySet="UserReg_Table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcommModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminDetails_Table">
+          <Key>
+            <PropertyRef Name="Ad_ID" />
+          </Key>
+          <Property Name="Ad_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ad_Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product_table" Relationship="Self.FK__Product_t__P_Fk___29572725" FromRole="AdminDetails_Table" ToRole="Product_table" />
+          <NavigationProperty Name="UserReg_Table" Relationship="Self.FK__UserReg_T__Admin__267ABA7A" FromRole="AdminDetails_Table" ToRole="UserReg_Table" />
+        </EntityType>
+        <EntityType Name="Cart_item">
+          <Key>
+            <PropertyRef Name="Cart_ID" />
+          </Key>
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_quantity" Type="Int32" Nullable="false" />
+          <Property Name="Product_price" Type="Int32" Nullable="false" />
+          <Property Name="Cart_total_price" Type="Int32" Nullable="false" />
+          <Property Name="FK_productID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product_table" Relationship="Self.FK__Cart_item__FK_pr__4AB81AF0" FromRole="Cart_item" ToRole="Product_table" />
+        </EntityType>
+        <EntityType Name="Product_table">
+          <Key>
+            <PropertyRef Name="P_ID" />
+          </Key>
+          <Property Name="P_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Price" Type="Int32" />
+          <Property Name="P_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Fk_ID" Type="Int32" />
+          <NavigationProperty Name="AdminDetails_Table" Relationship="Self.FK__Product_t__P_Fk___29572725" FromRole="Product_table" ToRole="AdminDetails_Table" />
+          <NavigationProperty Name="Cart_item" Relationship="Self.FK__Cart_item__FK_pr__4AB81AF0" FromRole="Product_table" ToRole="Cart_item" />
+        </EntityType>
+        <EntityType Name="UserReg_Table">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobNo" Type="Int64" Nullable="false" />
+          <Property Name="Ur_Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Addres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Admin_Fk_ID" Type="Int32" />
+          <NavigationProperty Name="AdminDetails_Table" Relationship="Self.FK__UserReg_T__Admin__267ABA7A" FromRole="UserReg_Table" ToRole="AdminDetails_Table" />
+        </EntityType>
+        <Association Name="FK__Product_t__P_Fk___29572725">
+          <End Role="AdminDetails_Table" Type="Self.AdminDetails_Table" Multiplicity="0..1" />
+          <End Role="Product_table" Type="Self.Product_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminDetails_Table">
+              <PropertyRef Name="Ad_ID" />
+            </Principal>
+            <Dependent Role="Product_table">
+              <PropertyRef Name="P_Fk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserReg_T__Admin__267ABA7A">
+          <End Role="AdminDetails_Table" Type="Self.AdminDetails_Table" Multiplicity="0..1" />
+          <End Role="UserReg_Table" Type="Self.UserReg_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminDetails_Table">
+              <PropertyRef Name="Ad_ID" />
+            </Principal>
+            <Dependent Role="UserReg_Table">
+              <PropertyRef Name="Admin_Fk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart_item__FK_pr__4AB81AF0">
+          <End Role="Product_table" Type="Self.Product_table" Multiplicity="1" />
+          <End Role="Cart_item" Type="Self.Cart_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_table">
+              <PropertyRef Name="P_ID" />
+            </Principal>
+            <Dependent Role="Cart_item">
+              <PropertyRef Name="FK_productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminDetails_Table" EntityType="Self.AdminDetails_Table" />
+          <EntitySet Name="Cart_item" EntityType="Self.Cart_item" />
+          <EntitySet Name="Product_table" EntityType="Self.Product_table" />
+          <EntitySet Name="UserReg_Table" EntityType="Self.UserReg_Table" />
+          <AssociationSet Name="FK__Product_t__P_Fk___29572725" Association="Self.FK__Product_t__P_Fk___29572725">
+            <End Role="AdminDetails_Table" EntitySet="AdminDetails_Table" />
+            <End Role="Product_table" EntitySet="Product_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserReg_T__Admin__267ABA7A" Association="Self.FK__UserReg_T__Admin__267ABA7A">
+            <End Role="AdminDetails_Table" EntitySet="AdminDetails_Table" />
+            <End Role="UserReg_Table" EntitySet="UserReg_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart_item__FK_pr__4AB81AF0" Association="Self.FK__Cart_item__FK_pr__4AB81AF0">
+            <End Role="Product_table" EntitySet="Product_table" />
+            <End Role="Cart_item" EntitySet="Cart_item" />
+          </AssociationSet>
+          <EntitySet Name="order_Details" EntityType="EcommModel.order_Details" />
+        </EntityContainer>
+        <EntityType Name="order_Details">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mobno" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="paymentstatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcommModelStoreContainer" CdmEntityContainer="EcommEntities2">
+          <EntitySetMapping Name="AdminDetails_Table">
+            <EntityTypeMapping TypeName="EcommModel.AdminDetails_Table">
+              <MappingFragment StoreEntitySet="AdminDetails_Table">
+                <ScalarProperty Name="Ad_ID" ColumnName="Ad_ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Ad_Pass" ColumnName="Ad_Pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart_item">
+            <EntityTypeMapping TypeName="EcommModel.Cart_item">
+              <MappingFragment StoreEntitySet="Cart_item">
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+                <ScalarProperty Name="Product_image" ColumnName="Product_image" />
+                <ScalarProperty Name="Product_name" ColumnName="Product_name" />
+                <ScalarProperty Name="Product_quantity" ColumnName="Product_quantity" />
+                <ScalarProperty Name="Product_price" ColumnName="Product_price" />
+                <ScalarProperty Name="Cart_total_price" ColumnName="Cart_total_price" />
+                <ScalarProperty Name="FK_productID" ColumnName="FK_productID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_table">
+            <EntityTypeMapping TypeName="EcommModel.Product_table">
+              <MappingFragment StoreEntitySet="Product_table">
+                <ScalarProperty Name="P_ID" ColumnName="P_ID" />
+                <ScalarProperty Name="P_Name" ColumnName="P_Name" />
+                <ScalarProperty Name="P_Image" ColumnName="P_Image" />
+                <ScalarProperty Name="P_Price" ColumnName="P_Price" />
+                <ScalarProperty Name="P_Description" ColumnName="P_Description" />
+                <ScalarProperty Name="P_Fk_ID" ColumnName="P_Fk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReg_Table">
+            <EntityTypeMapping TypeName="EcommModel.UserReg_Table">
+              <MappingFragment StoreEntitySet="UserReg_Table">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobNo" ColumnName="MobNo" />
+                <ScalarProperty Name="Ur_Pass" ColumnName="Ur_Pass" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Addres" ColumnName="Addres" />
+                <ScalarProperty Name="Admin_Fk_ID" ColumnName="Admin_Fk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_Details">
+            <EntityTypeMapping TypeName="EcommModel.order_Details">
+              <MappingFragment StoreEntitySet="order_Details">
+                <ScalarProperty Name="paymentstatus" ColumnName="paymentstatus" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Mobno" ColumnName="Mobno" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

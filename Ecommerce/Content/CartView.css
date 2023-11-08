@@ -1,0 +1,55 @@
+﻿*, body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    margin: 10px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+     
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.quantity-input {
+    width: 50px;
+}
+
+.update-button, .remove-button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.backproduct-button
+{
+text-align:start;
+margin-top: 10px;
+padding: 10px 17px;
+background-color: #ff523b;
+color: #fff;
+border: none;
+cursor: pointer;
+text-decoration: none;
+font-size:15px;
+
+}
+.checkout-button {
+    margin-top: 10px;
+    padding: 10px 17px;
+    background-color: #ff523b;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none
+}
+.addfinal
+{
+    margin-left:67%;
+  
+  /*text-align:right;*/
+}

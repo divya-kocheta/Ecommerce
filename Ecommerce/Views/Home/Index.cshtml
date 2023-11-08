@@ -1,0 +1,349 @@
+﻿
+@model IEnumerable < Ecommerce.Models.Product_table >
+    @{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StyleBlend | Ecommerce Website</title>
+
+
+    @*<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>*@
+
+    <link rel="stylesheet" href="@Url.Content("/Content/StyleSheet1.css")" />
+
+
+</head>
+<body>
+    <div class="header">
+
+
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="~/Content/logo4.png" alt="logo" width=125>
+                </div>
+               
+                <nav>
+                    <ul>
+
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Product", "", "")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Login/register</a>
+                            <div class="dropdown-content">
+                                @*<a href="@Url.Action("Index","User")">User</a>
+                                    <a href="#">Admin</a>*@
+                                @Html.ActionLink("User", "Login", "User")
+                                @Html.ActionLink("Admin", "Login", "Admin")
+
+                            </div>
+                        </li>
+
+
+
+                       
+                    </ul>
+                </nav>
+                <div class="navbar-icons">
+                    <ul>
+                        @*<li><img src="~/Content/like.png" width="15" height="15" /></li>
+            <li><img src="~/Content/magnifying-glass.png" width="15" height="15" /></li>*@
+                        <li><img src="~/Content/market.png" width="15" height="15" /></li>
+
+
+                    </ul>
+                   
+                    <span>Welcome, @Session["UserEmail"]!</span>
+                    @*<div class="user-info-container">
+                    @if(User.Identity.IsAuthenticated && Session["UserEmail"]!=null)
+        {
+                    <div class="user-info">
+                        <span>Welcome, @Session["UserEmail"]!</span>
+                    </div>
+                    }
+                    else
+                    {
+                        Url.Action("Login", "User");
+                    }
+                </div>*@
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-2">
+                    <h1>Give Your life <br>A New Style!</h1>
+                    <p>
+                        Success isn't always about greatness. It's about consistency.
+                        Consistent<br>hard work gains success.Greatness will come.
+                    </p>
+                    <a href="@Url.Action("Index","productList")" class="btn">Explore Now &#10141;</a>
+                </div>
+
+                <div class="col-2">
+                    <img src="~/Content/image3.png" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*featured ctaegories*@
+    <div class="categories">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <img src="~/Content/shopping.jpg" width="340" height="453" alt="shop" />
+                </div>
+                <div class="col-3">
+                    <img src="~/Content/shopping1.jpg" width="340" height="453" alt="shop" />
+                </div>
+                <div class="col-3">
+                    <img src="~/Content/shopping2.jpg" width="340" height="453" alt="shop" />
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    @*featured products*@
+
+    <div class="small-container">
+        <h3 class="title">Top selling Products</h3>
+        <div class="row">
+            <div class="col-4">
+                <img src="~/Content/shopping.jpg" alt="shop" />
+                <h4>Blue Baggy jeans</h4>
+                <div class="rating">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>Rs.1000</p>
+
+            </div>
+
+            <div class="col-4">
+                <img src="~/Content/product2.jpg" alt="shop" />
+                <h4>White Checks Shirt</h4>
+                <div class="rating">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+
+                </div>
+                <p>Rs.1500</p>
+
+            </div>
+            <div class="col-4">
+                <img src="~/Content/Mproduct2.jpg" alt="shop" />
+                <h4>Men's Tshirt</h4>
+                <div class="rating">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+
+
+                </div>
+                <p>Rs.1000</p>
+
+            </div>
+
+            <div class="col-4">
+                <img src="~/Content/Fproduct1.jpg" alt="shop" />
+                <h4>Pink Structured top</h4>
+                <div class="rating">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+
+
+                </div>
+                <p>Rs.1000</p>
+
+            </div>
+        </div>
+    </div>
+
+    <!---------- offer --------------->
+    <div class="offer">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="/Content/Fproduct4.png" width="278" height="417" alt="product" class="offer-img" />
+                </div>
+                <div class="col-2">
+                    <p>Exclusively Available on StyleBlend</p>
+                    <h1>Cotton Checks Tshirt</h1>
+                    <small>Our soft button up shirts define versatile style dress it up or down and wear it your way!</small>
+                    <a href="" class="btn">Buy Now &#8594;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<!  --------------- testimonial---------->*@
+    <div class="testimonial">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <span>&#8220;</span>
+                    <p>
+                        As we all know, it’s easy for marketers to brag about
+                        how great their product or service is.
+                        Writing compelling copy, shooting enticing photos.
+                    </p>
+                    <div class="rating">
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9734;</span>
+                    </div>
+                    <img src="~/Content/user1.jpg">
+                    <h3>Mike smith</h3>
+                </div>
+
+                <div class="col-3">
+                    <span>&#8220;</span>
+                    <p>
+                        As we all know, it’s easy for marketers to brag about
+                        how great their product or service is.
+                        Writing compelling copy, shooting enticing photos.
+                    </p>
+                    <div class="rating">
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9734;</span>
+                        <span>&#9734;</span>
+                    </div>
+                    <img src="~/Content/user1.jpg">
+                    <h3>Mike smith</h3>
+                </div>
+
+                <div class="col-3">
+                    <span>&#8220;</span>
+                    <p>
+                        As we all know, it’s easy for marketers to brag about
+                        how great their product or service is.
+                        Writing compelling copy, shooting enticing photos.
+                    </p>
+                    <div class="rating">
+
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9734;</span>
+                    </div>
+                    <img src="~/Content/user1.jpg">
+                    <h3>Mike smith</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*brands*@
+    <div class="brands">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-5">
+                    <img src="~/Content/Nike-logo1.png">
+                </div>
+
+                <div class="col-5">
+                    <img src="~/Content/Paypal-logo1.png">
+                </div>
+
+                <div class="col-5">
+                    <img src="~/Content/zara-logo1.png">
+                </div>
+
+                <div class="col-5">
+                    <img src="~/Content/Levis-logo1.png">
+                </div>
+
+                <div class="col-5">
+                    <img src="~/Content/Lee-logo1.png">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*footer*@
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-left">
+                    <img src="~/Content/logo4.png" alt="logo" width=125>
+                    <br />
+                    <br />
+
+                    <a> @Html.ActionLink("Home", "Index", "Home")</a>
+                    <span>|</span>
+                    <a> @Html.ActionLink("Product", "", "")</a>
+                    <span>|</span>
+                    <a> @Html.ActionLink("About", "About", "Home")</a>
+                    <span>|</span>
+                    <a> @Html.ActionLink("Contact", "Contact", "Home")</a>
+
+                    <p>
+                        StyleBlend Store <span>&#169;</span> 2023
+                    </p>
+
+                </div>
+                <div class="footer-middle">
+                    <div class="icon-text">
+                        <img src="~/Content/location-pointer.png" alt="logo" width=30>
+                        <p>444 S, Central Park, Pune, India</p>
+                    </div>
+                    <div class="icon-text">
+                        <img src="~/Content/phone.png" alt="logo" width=30>
+                        <p>+91123456789</p>
+                    </div>
+                    <div class="icon-text">
+                        <img src="~/Content/mail.png" alt="logo" width=30>
+                        <p>support@styleblend.com</p>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <h4>About the company</h4>
+                    <p>
+                        Hello and welcome to StyleBlend,<br />
+                        the place to find the best clothes<br />
+                        for every taste and occasion. <br />
+                        We thoroughly check the quality of <br />
+                        our goods.
+                    </p>
+                    <div class="footer-img">
+                        <img src="~/Content/facebook-logo.png" alt="logo" width=30>
+                        <img src="~/Content/twitter-logo.png" alt="logo" width=30>
+                        <img src="~/Content/linkedin-logo.png" alt="logo" width=30>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

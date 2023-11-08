@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Ecommerce.Models.Product_table>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Product List</h2>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/ProductListView.css")" />
+</head>
+<body>
+    @*<span>Welcome, @Session["UserEmail"]!</span>*@
+
+    <div class="navbar">
+        <a href="@Url.Action("Index","Cart")" class="dropbtn">&#128722;</a>
+    </div>
+    @if(TempData["Message"]!=null)
+     { 
+        <div class="alert alert-info">
+            @TempData["Message"]
+
+        </div>
+
+    }
+    <div class="product-grid">
+        @foreach (var product in Model.Take(9))
+        {
+            <div class="product-card" onclick="openModal('productModal-@product.P_ID')">
+
+                <img src="@Url.Content(product.P_Image)" class="card-img-top" @*width="200" height="250"*@ alt="@product.P_Name">
+                <div class="card-body">
+                    <h5 class="product-title">@product.P_Name</h5>
+                    <p class="product-price">Price:$@product.P_Price</p>
+
+
+                </div>
+
+                </div>
+        }
+    </div>
+
+
+    @foreach (var product in Model.Take(9))
+    {
+        <div id="productModal-@product.P_ID" class="modal-bg">
+            <div class="modal-context">
+                <span class="modal-close" onclick="closeModal('productModal-@product.P_ID')">
+                    &times;
+
+                </span>
+                <img src="@Url.Content(product.P_Image)" width="200" height="250" />
+                <h5>@product.P_Name</h5>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>@product.P_Description</p>
+                <bold><p>Price:@product.P_Price</p></bold>
+                @*@{ 
+                    bool isProductInCart = Model.cartProducIDs.Contains(product.P_ID)
+
+                }*@
+
+                <div class="buttons">
+                    <button class="addtocart" data-productid="@product.P_ID">Add to Cart</button>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const addToCartButtons = document.querySelectorAll(".addtocart");
+
+            addToCartButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const productId = button.getAttribute("data-productid");
+
+                    fetch('/productList/AddToCart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `productID=${productId}`
+                    })
+                        .then(response =>
+                    {
+                            if (response.ok) {
+                                window.location.href = '/Cart/Index';
+                            }
+                            else {
+                                alert('An error occurred adding the product into the cart');
+                            }
+                    })
+                   /* .then(response => response.json())*/
+                    @*.then(result => {
+                        alert(result.message);
+                        window.location.href = '@Url.Action("Index", "Cart")';
+                    })*@
+                    .catch(error => {
+                        console.error(error);
+                       /* alert('An error occurred while adding the product to the cart.');*/
+                         window.location.href = '@Url.Action("Index", "Cart")';
+
+                    });
+                });
+            });
+        });
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+</script>
+   
+
+</body>
+</html>

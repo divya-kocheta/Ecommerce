@@ -1,0 +1,165 @@
+﻿@model List<Ecommerce.Models.Cart_item>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Shopping Cart</h2>
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="@Url.Content("~/Content/CartView.css")" />
+    @*<title>Shopping cart</title>*@
+
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Product_name</td>
+                    <td style="text-align:center;">
+                        <img src="@Url.Content(item.Product_image)" width="40" height="40" />
+                    </td>
+                    <td>@item.Product_price.ToString("C")</td>
+                    <td>
+                        <input type="number" class="quantity-input" value="@item.Product_quantity" data-cartitemid="@item.Cart_ID" />
+                        <button class="update-button" data-cartitemid="@item.Cart_ID">Update</button>
+                    </td>
+                    @*<td>@(item.Product_price * item.Product_quantity).ToString("C")</td>*@
+                    @*<td>@string.Format("{0:C}", item.Product_price * item.Product_quantity)</td>*@
+                    <td class="total-price" data-cartitemid="@item.Cart_ID">@string.Format("{0:C}", item.Product_price * item.Product_quantity)</td>
+
+                    <td>
+                        <button class="remove-button" data-cartitemid="@item.Cart_ID">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Index","productList")" class="backproduct-button">&#8617; Back to product List </a>
+
+    <div class="addfinal">
+
+
+        <button class="addcarttotal">Add</button>
+        <input class="total" id="totalInput" />
+        @*<button class="checkout-button">Checkout</button>*@
+        <a href="@Url.Action("GenerateBill","Billing")" class="checkout-button">CheckOut &#10141;</a>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const updateButtons = document.querySelectorAll(".update-button");
+
+            updateButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const cartItemId = button.getAttribute("data-cartitemid");
+                    const newQuantity = document.querySelector(`.quantity-input[data-cartitemid='${cartItemId}']`).value;
+
+                    fetch('/Cart/UpdateCartItem', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `cartItemId=${cartItemId}&newQuantity=${newQuantity}`
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Redirect to the cart index page
+                                window.location.href = '/Cart/Index';
+                            } else {
+                                alert('An error occurred while updating the cart item quantity.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert('An error occurred while updating the cart item quantity.');
+                        });
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const removeButtons = document.querySelectorAll(".remove-button");
+
+            removeButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const cartItemId = button.getAttribute("data-cartitemid");
+
+                    // Send a POST request to remove the item
+                    fetch('/Cart/RemoveCartItem', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `cartItemId=${cartItemId}`
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Redirect to the cart index page
+                                window.location.href = '/Cart/Index';
+                            }
+                            else {
+                                alert('An error occurred while removing the item from the cart.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert('catch An error occurred while removing the item from the cart.');
+                        });
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const addTotalButton = document.querySelector(".addcarttotal");
+            const totalInput = document.querySelector("#totalInput");
+
+            addTotalButton.addEventListener("click", function () {
+                const totalPrices = document.querySelectorAll(".total-price");
+                let totalPrice = 0;
+
+                totalPrices.forEach(function (totalPriceElement) {
+                    const text = totalPriceElement.innerText;
+                    console.log(`Text: "${text}"`); // Output the text for debugging
+                    const cleanedText = text.replace(/\u20B9|,|\$/g, ''); // Remove ₹, and , symbols
+                    const price = parseFloat(cleanedText);
+
+                    if (!isNaN(price)) {
+                        totalPrice += price;
+                    } else {
+                        console.log(`Invalid price format: ${text}`);
+                    }
+                });
+
+                if (!isNaN(totalPrice)) {
+                    totalInput.value = "\u20B9" + totalPrice.toFixed(2); // Add ₹ symbol to the result
+                    console.log(`Total Price: ₹${totalPrice.toFixed(2)}`);
+                } else {
+                    console.error("Total price calculation failed.");
+                }
+            });
+        });
+
+
+    </script>
+
+</body>
+</html>

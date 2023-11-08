@@ -1,0 +1,176 @@
+﻿
+
+@model Ecommerce.Models.order_Details
+
+@{
+    ViewBag.Title = "ConfirmedOrder";
+}
+
+@Html.Raw(TempData["ConfirmSuccessMSG"])
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-column">
+            <h3>Shipping Address</h3>
+            <p>User Id: @ViewBag.UserId </p>
+            <p>Address: @ViewBag.Address</p>
+            <p>Mobile No: @ViewBag.MobNo</p>
+
+            <form action="/Order/Submit" method="post">
+          
+                @Html.TextBoxFor(model => model.City, new { name = "City", placeholder = "City", required = "required",value= TempData["SubmittedCity"] })
+                @Html.ValidationMessageFor(model => model.City)
+
+            
+                @Html.TextBoxFor(model => model.Zipcode, new { name = "Zipcode", placeholder = "Zipcode", required = "required" ,value= TempData["SubmittedZipcode"] })
+                @Html.ValidationMessageFor(model => model.Zipcode)
+
+                <input type="submit" value="Submit" />
+
+            </form>
+        </div>
+
+       
+        <div class="right-column">
+            <h3>Payment Options</h3>
+            <!-- Add payment options here, e.g., credit card, PayPal, etc. -->
+            <label>
+                <input type="radio" name="payment-option" value="credit-card" required="required"> Credit Card
+            </label>
+            <label>
+                <input type="radio" name="payment-option" value="debit-card"> Debit Card
+            </label>
+            <label>
+                <input type="radio" name="payment-option" value="net-banking"> Net Banking
+            </label>
+            <label>
+                <input type="radio" name="payment-option" value="upi"> UPI
+            </label>
+            <label>
+                <input type="radio" name="payment-option" value="cod">Cash on Delivery
+            </label>
+            <!-- Add more payment options using similar labels and radio inputs -->
+        </div>
+        <div id="hoverMessage" class="hover-message">
+            Please select one payment option before proceeding.
+        </div>
+        <div>
+            <button class="proceed-button" id="proceedButton" disabled onclick="proceedToPayment()">Proceed to payment</button>
+
+        </div>
+
+
+    </div>
+
+    <script>
+        var hoverMessage = document.getElementById('hoverMessage');
+        hoverMessage.style.display = 'block';
+
+        function enableProceedButton() {
+            var selectedRadio = document.querySelector('input[name="payment-option"]:checked');
+            var proceedButton = document.getElementById('proceedButton');
+           
+
+            if (selectedRadio) {
+               
+                proceedButton.disabled = false;
+                proceedButton.classList.add('proceed-button-hover');
+                hoverMessage.style.display = 'none';
+               
+            }
+            else {
+                
+                proceedButton.disabled = true;
+                proceedButton.classList.remove('proceed-button-hover');
+                /*hoverMessage.innerHTML = 'Please select a payment option before proceeding.';*/
+            
+                  hoverMessage.style.display = 'block';
+            }
+        }
+
+        // Attach the enableProceedButton function to the change event of radio buttons
+        var radioButtons = document.querySelectorAll('input[name="payment-option"]');
+        radioButtons.forEach(function (radio) {
+            radio.addEventListener('change', enableProceedButton);
+        });
+
+        function proceedToPayment() {
+            var selectedRadio = document.querySelector('input[name="payment-option"]:checked');
+            var proceedButton = document.getElementById('proceedButton');
+         /*   var hoverMessage = document.getElementById('hoverMessage');*/
+
+            if (selectedRadio) {
+                window.location.href = '/Order/thankyou';
+            } else {
+               /* hoverMessage.innerHTML = 'Please select a payment option before proceeding.';*/
+                hoverMessage.style.display = 'block';
+                /*alert('Please select a payment option before proceeding.');*/
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .left-column {
+        flex: 1;
+        padding: 20px;
+        background-color: #f0f0f0;
+    }
+
+    .right-column {
+        flex: 1;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    h3 {
+        color: #333;
+    }
+
+    /* Style radio buttons and labels */
+    label {
+        display: block;
+        margin-bottom: 0px;
+    }
+
+    .proceed-button {
+        margin-right: 70px;
+        width: 180px;
+        height: 30px;
+        margin-top: 200px;
+    }
+   
+    .Confirmation-Message {
+        background-color: #5cb85c;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 1000;
+    }
+    .proceed-button-hover{
+        background-color:#007bff;
+        cursor:pointer;
+    }
+    .hover-message{
+        display:block;
+        color:red;
+        margin-top:50px;
+    }
+</style>

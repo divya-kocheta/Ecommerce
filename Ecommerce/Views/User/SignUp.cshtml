@@ -1,0 +1,75 @@
+﻿@model Ecommerce.Models.UserReg_Table
+
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="@Url.Content("/Content/StyleSheet2.css")" />
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="hero ">
+        <div class="background-image"></div>
+
+        <div class="form-box ">
+            <div class="button-box">
+                <div id="btn">
+
+                </div>
+
+                <button type="button" class="toggle-btn">
+                    Register Your Account
+                </button>
+
+
+
+                <!-- <button type="button" class="toggle-btn" onclick="register()">
+                    Register
+                </button> -->
+            </div>
+            <div class="social-icons">
+                <img src="~/Content/Images/facebook-icon1.png" alt="" />
+                <img src="~/Content/Images/twitter-icon1.png" alt="" />
+                <img src="~/Content/Images/google-icon1.png" alt="" />
+            </div>
+
+            <form id="register-container" class="input-group" action="@Url.Action("SignUp","User")" method="post">
+                <div class="scroll">
+                    @Html.AntiForgeryToken()
+
+                    @Html.TextBoxFor(model => model.fullName, new { @class = "input-field", placeholder = "Full Name", required = "required" })
+
+                    @Html.TextBoxFor(model => model.Email, new { @class = "input-field", placeholder = "Email", required = "required" })
+                    @Html.PasswordFor(model => model.Ur_Pass, new { @class = "input-field", placeholder = "Password", required = "required" })
+                    @Html.TextBoxFor(model => model.MobNo, new { @class = "input-field", placeholder = "Mobile No.", required = "required" })
+                    @Html.TextBoxFor(model => model.Gender, new { @class = "input-field", placeholder = "Gender", required = "required" })
+                    @Html.TextBoxFor(model => model.Addres, new { @class = "input-field", placeholder = "Address", required = "required" })
+
+
+
+                    @*<input type="checkbox" class="check-box" placeholder="." /><span>Remember Password</span>*@
+                    @*<button type="submit" class="input-btn">Login</button>*@
+
+                    <input type="submit" value="Register" class="input-btn" />
+                    <br />
+                    <p> <a href="@Url.Action("Login","User")">Click here to login</a></p>
+                </div>
+               
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+@*<div>
+    @Html.ActionLink("Back to Login", "Login", "User")
+</div>*@

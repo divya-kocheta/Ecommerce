@@ -1,0 +1,61 @@
+﻿@model List<Ecommerce.Models.Cart_item>
+@{
+    ViewBag.Title = "GenerateBill";
+}
+
+<h2>Generate Bill</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/Content/BillingView.css")" />
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.cartItems != null)
+            {
+                var cartItems = ViewBag.cartItems as List<Ecommerce.Models.Cart_item>;
+                foreach (var item in cartItems)
+                {
+                    <tr>
+                        <td>@item.Product_name</td>
+                        <td>@item.Product_price.ToString("C")</td>
+                        <td>@item.Product_quantity</td>
+                        <td>@string.Format("{0:C}", item.Product_price * item.Product_quantity)</td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+   
+        <p>Cart subtotal: @string.Format("{0:C}", ViewBag.TotalAmount)</p>
+        <div>
+            @if (@ViewBag.ProductCount <= 1)
+            {
+                <a href="@Url.Action("ConfirmedOrder","Order")" class="proceed-button">Proceed to Buy (@ViewBag.ProductCount item)</a>
+            }
+            else
+            {
+                <a href="@Url.Action("ConfirmedOrder","Order")" class="proceed-button">Proceed to Buy (@ViewBag.ProductCount items)</a>
+            }
+
+
+        </div> 
+        <div>
+            <a href="@Url.Action("Index","Cart")" class="back-button">Go to Cart</a>
+        </div> 
+    
+   
+</body>
+
+</html>
